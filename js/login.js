@@ -8,14 +8,11 @@ Formulario.addEventListener('submit', function(event){
     console.log(micontra);
 
    
-    if ((email.length > 0) && (micontra.length >0)) {
-        event.preventDefault();
-        window.location.href = 'index.html';
-    } else if ((email.length == 0)) {
-        event.preventDefault();
-        alert('Debe ingresar al menos 1 caracteres');
-    } else if ((micontra.length == 0)) {
-        event.preventDefault();
-        alert('Debe ingresar al menos 1 caracteres')
-    }
+     if (!(email.length >0) && !(micontra.length > 0)) {
+         event.preventDefault();
+         alert('Debe ingresar al menos 1 caracteres');
+        } else {
+         event.preventDefault();
+         window.location.href = 'index.html';
+        }
 });
