@@ -188,3 +188,15 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
+
+#imglogo{
+   padding-left: 9rem;
+}
+
+input:invalid {
+  border: 2px solid rgb(221, 53, 11);
+}
+
+input:valid {
+  border: 2px solid rgb(37, 238, 37);
+}

@@ -20,24 +20,24 @@
   <main class="mt-5">
     <div class="container">
       <form id = "form">
-        <img src="img/login.png">
+        <img src="img/login.png" id="imglogo">
         <h1 class="h3 mb-3 fw-normal text-center">Inicio de sesión</h1>
     
-        <div class="form-floating">
-          <input type="text" class="form-control" id="floatingInput" placeholder="email">
+        <div class="form-floating mb-3 fw-normal text-center">
+          <input type="text" class="form-control" id="floatingInput" placeholder="email" required>
           <label for="floatingInput">Email</label>
         </div>
-        <div class="form-floating">
-          <input type="password" class="form-control" id="floatingPassword" placeholder="Contraseña">
+        <div class="form-floating mb-3 fw-normal text-center">
+          <input type="password" class="form-control" id="floatingPassword" placeholder="Contraseña" required >
           <label for="floatingPassword">Contraseña</label>
         </div>
-        <button class="w-25 btn btn-lg btn-primary " type="submit">Ingresar</button>
+        <button class="w-100 mb-3 btn btn-lg btn-primary " type="submit">Ingresar</button>
       </form>
       <script src="https://accounts.google.com/gsi/client" async defer></script>
-      <div id="g_id_onload"
+        <div id="g_id_onload"
          data-client_id="402294122645-rhtpg3gd4ac4oh14mnpefl6fr5av7ipq.apps.googleusercontent.com"
          data-callback="google">
-      </div>
+        </div>
     <div class="g_id_signin" data-type="standard"></div>
     </div>
   </main>
