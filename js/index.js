@@ -14,7 +14,7 @@ Formulario.addEventListener('submit', function(event){
         } else {
          event.preventDefault();
          window.location.href = 'home.html';
-        }
+        }S
 });
 
 var provider = new firebase.auth.GoogleAuthProvider();
