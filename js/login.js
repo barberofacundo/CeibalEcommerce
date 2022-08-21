@@ -13,7 +13,7 @@ Formulario.addEventListener('submit', function(event){
          alert('Debe ingresar al menos 1 caracteres');
         } else {
          event.preventDefault();
-         window.location.href = 'index.html';
+         window.location.href = 'portada.html';
         }
 });
 
