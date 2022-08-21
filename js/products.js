@@ -1,12 +1,10 @@
 document.addEventListener('DOMContentLoaded', function(){
-    const Listado_URL = 'f';
+    const Listado_URL = 'https://japceibal.github.io/emercado-api/cats_products/101.json';
 
     
     fetch(Listado_URL) 
     .then(respuesta => respuesta.json()) 
     .then(datos => {
-         console.log(datos);
-         console.log(datos.products[3].cost);
 
     
         let divListaAutos = document.getElementById('lista-autos');
