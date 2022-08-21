@@ -5,7 +5,6 @@ Formulario.addEventListener('submit', function(event){
     let miInputDeContraseña = document.getElementById('floatingPassword');
 
     let micontra = miInputDeContraseña.value;
-    console.log(micontra);
 
    
      if (!(email.length >0) && !(micontra.length > 0)) {
@@ -15,7 +14,10 @@ Formulario.addEventListener('submit', function(event){
          event.preventDefault();
          window.location.href = 'portada.html';
         }
+
 });
+
+
 
 var provider = new firebase.auth.GoogleAuthProvider();
 
