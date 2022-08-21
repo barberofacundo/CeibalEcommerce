@@ -17,7 +17,11 @@ Formulario.addEventListener('submit', function(event){
 
 });
 
+window.google = function(){
+
+         window.location.href = 'portada.html';
+        };
+    
 
 
-var provider = new firebase.auth.GoogleAuthProvider();
 
