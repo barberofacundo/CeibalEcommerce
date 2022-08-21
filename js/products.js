@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function(){
-    const Listado_URL = 'https://japceibal.github.io/emercado-api/cats_products/101.json';
+    const Listado_URL = 'f';
 
     
     fetch(Listado_URL) 
