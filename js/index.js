@@ -12,3 +12,13 @@ document.addEventListener("DOMContentLoaded", function(){
         window.location = "products.html"
     });
 });
+
+let pantalla = localStorage.getItem('user');
+console.log(pantalla);
+
+let nav = document.getElementById('local');
+nav.innerHTML += `
+                 <a class="nav-link" href="sell.html">${pantalla}</a>
+                
+            `
+        
