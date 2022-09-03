@@ -10,24 +10,24 @@ function showList(){
 
     let htmlContentToAppend = "";
     for(let i = 0; i < ArrayList.length; i++){
-        let category = ArrayList[i];
+        let product = ArrayList[i];
 
-        if (((minCount == undefined) || (minCount != undefined && parseInt(category.cost) >= minCount)) &&
-            ((maxCount == undefined) || (maxCount != undefined && parseInt(category.cost) <= maxCount))){
+        if (((minCount == undefined) || (minCount != undefined && parseInt(product.cost) >= minCount)) &&
+            ((maxCount == undefined) || (maxCount != undefined && parseInt(product.cost) <= maxCount))){
 
             htmlContentToAppend += `
             
                 <div class="row">
                     <div class="col-3">
-                        <img src="${category.image}" alt="imagen" class="img-thumbnail">
+                        <img src="${product.image}" alt="imagen" class="img-thumbnail">
                     </div>
                     <div class="col">
                         <div class="d-flex w-100 justify-content-between">
                             <div>
-                            <h4> ${category.name} - ${category.currency} ${category.cost}</h4> 
-                            <p>  ${category.description} </p> 
+                            <h4> ${product.name} - ${product.currency} ${product.cost}</h4> 
+                            <p>  ${product.description} </p> 
                             </div>
-                            <small> ${category.soldCount} Vendidos </small> 
+                            <small> ${product.soldCount} Vendidos </small> 
                         </div>
                     </div>
                 </div>
@@ -69,6 +69,7 @@ function sortCategories(criteria, array){
 }
 
 
+
 function sortAndShowCategories(sortCriteria, categoriesArray){
     currentSortCriteria = sortCriteria;
 
@@ -86,19 +87,36 @@ function sortAndShowCategories(sortCriteria, categoriesArray){
 document.addEventListener('DOMContentLoaded', function(){
 
     let category = localStorage.getItem('catID');
-    console.log(category);
     let Listado_URL = '';
 
-     if (category == 102) {
-         Listado_URL = 'https://japceibal.github.io/emercado-api/cats_products/102.json';
+      if (category == 102) {
+          Listado_URL = 'https://japceibal.github.io/emercado-api/cats_products/102.json';
+      }
+      else if (category == 101) {
+          Listado_URL = 'https://japceibal.github.io/emercado-api/cats_products/101.json';
+      }
+      else if (category == 103){
+          Listado_URL = 'https://japceibal.github.io/emercado-api/cats_products/103.json';
+      }
+      else if (category == 104){
+        Listado_URL = 'https://japceibal.github.io/emercado-api/cats_products/104.json';
      }
-     else if (category == 101) {
-         Listado_URL = 'https://japceibal.github.io/emercado-api/cats_products/101.json';
+     else if (category == 105){
+        Listado_URL = 'https://japceibal.github.io/emercado-api/cats_products/105.json';
+     }
+     else if (category == 106){
+        Listado_URL = 'https://japceibal.github.io/emercado-api/cats_products/106.json';
+     }
+     else if (category == 107){
+        Listado_URL = 'https://japceibal.github.io/emercado-api/cats_products/107.json';
+     }
+     else if (category == 108){
+        Listado_URL = 'https://japceibal.github.io/emercado-api/cats_products/108.json';
      }
      else {
-         Listado_URL = 'https://japceibal.github.io/emercado-api/cats_products/103.json';
+        Listado_URL = 'https://japceibal.github.io/emercado-api/cats_products/109.json';
      }
-
+    
     fetch(Listado_URL) 
     .then(respuesta => respuesta.json()) 
     .then(datos =>{
@@ -177,8 +195,40 @@ document.addEventListener('DOMContentLoaded', function(){
     
             showList();
         });
-});
 
+        document.getElementById("buscar").addEventListener("input", function(){
+            let results = ArrayList.filter(item => {
+                let itemUpperCase = item.name.toUpperCase();
+                return itemUpperCase.includes(document.getElementById("buscar").value.toUpperCase());
+            });
+            let htmlContentToAppend = "";
+            for(let i = 0; i < results.length; i++){
+                let product = results[i];
+                htmlContentToAppend += `
+            
+                <div class="row">
+                    <div class="col-3">
+                        <img src="${product.image}" alt="imagen" class="img-thumbnail">
+                    </div>
+                    <div class="col">
+                        <div class="d-flex w-100 justify-content-between">
+                            <div>
+                            <h4> ${product.name} - ${product.currency} ${product.cost}</h4> 
+                            <p>  ${product.description} </p> 
+                            </div>
+                            <small> ${product.soldCount} Vendidos </small> 
+                        </div>
+                    </div>
+                </div>
+            
+            `
+            }
+            document.getElementById("listado").innerHTML = htmlContentToAppend;
+            
+        });
+       
+    
+});
 
 
 
