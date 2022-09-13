@@ -8,36 +8,44 @@ let ArrayList = [];
 
 function showList(){
 
-    let htmlContentToAppend = "";
-    for(let i = 0; i < ArrayList.length; i++){
-        let product = ArrayList[i];
-
+    
+    
+    for(let product of ArrayList){
+        
+        
         if (((minCount == undefined) || (minCount != undefined && parseInt(product.cost) >= minCount)) &&
             ((maxCount == undefined) || (maxCount != undefined && parseInt(product.cost) <= maxCount))){
-
-            htmlContentToAppend += `
-            
+            let btnPoke = document.createElement("button");
+            document.getElementById("listado").appendChild(btnPoke);
+            btnPoke.innerHTML = 
+              `
+                
                 <div class="row">
                     <div class="col-3">
-                        <img src="${product.image}" alt="imagen" class="img-thumbnail">
-                    </div>
-                    <div class="col">
-                        <div class="d-flex w-100 justify-content-between">
-                            <div>
-                            <h4> ${product.name} - ${product.currency} ${product.cost}</h4> 
+                         <img src="${product.image}" alt="imagen"  class="img-thumbnail">
+                     </div>
+                     <div class="col">
+                         <div class="d-flex w-100 justify-content-between">
+                             <div>
+                             <h4> ${product.name} - ${product.currency} ${product.cost}</h4> 
                             <p>  ${product.description} </p> 
-                            </div>
-                            <small> ${product.soldCount} Vendidos </small> 
-                        </div>
+                             </div>
+                             <small> ${product.soldCount} Vendidos </small> 
+                         </div>
                     </div>
                 </div>
-            
-            `
+                 
+             `
+             btnPoke.addEventListener("click", function () {
+                localStorage.setItem("ProdId", product.id)
+                location.href = ("product-info.html");
+            })
+             
         }
-
-        document.getElementById("listado").innerHTML = htmlContentToAppend;
+        
     }
-}     
+}
+  
 
 function sortCategories(criteria, array){
     let result = [];
@@ -125,27 +133,11 @@ document.addEventListener('DOMContentLoaded', function(){
         for (let i=0; i < datos.products.length; i++) {
 
             ArrayList[i] = datos.products[i];
-            showList();
-            // divListaAutos.innerHTML += `
-            // <div class="contenedor de autos">
-            //     <div class="row">
-            //         <div class="col-3">
-            //             <img src = "${datos.products[i].image}" class="img-thumbnail">
-            //         </div>
-            //         <div class="col">
-            //             <div class="d-flex w-100 justify-content-between">
-            //                 <div>
-            //                 <h4> ${datos.products[i].name} - ${datos.products[i].currency} ${datos.products[i].cost}</h4> 
-            //                 <p>  ${datos.products[i].description} </p> 
-            //                 </div>
-            //                 <small> ${datos.products[i].soldCount} Vendidos </small> 
-            //             </div>
-    
-            //         </div>
-            //     </div>
-            // </div>
-            // `
         }
+            showList();
+        
+
+
         let descrip =  document.getElementById('descri');
         descrip.innerHTML += `Veras aqui todos los productos de la categoria ${datos.catName}`
         });
@@ -203,20 +195,20 @@ document.addEventListener('DOMContentLoaded', function(){
             });
             let htmlContentToAppend = "";
             for(let i = 0; i < results.length; i++){
-                let product = results[i];
+                let products = results;
                 htmlContentToAppend += `
             
                 <div class="row">
                     <div class="col-3">
-                        <img src="${product.image}" alt="imagen" class="img-thumbnail">
+                        <img src="${products[i].image}" alt="imagen" class="img-thumbnail">
                     </div>
                     <div class="col">
                         <div class="d-flex w-100 justify-content-between">
                             <div>
-                            <h4> ${product.name} - ${product.currency} ${product.cost}</h4> 
-                            <p>  ${product.description} </p> 
+                            <h4> ${products[i].name} - ${products[i].currency} ${products[i].cost}</h4> 
+                            <p>  ${products[i].description} </p> 
                             </div>
-                            <small> ${product.soldCount} Vendidos </small> 
+                            <small> ${products[i].soldCount} Vendidos </small> 
                         </div>
                     </div>
                 </div>
@@ -227,7 +219,8 @@ document.addEventListener('DOMContentLoaded', function(){
             
         });
        
-    
+
+   
 });
 
 
