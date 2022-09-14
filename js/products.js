@@ -6,9 +6,25 @@ let minCount = undefined;
 let maxCount = undefined;
 let ArrayList = [];
 
+function CleanList(){
+
+    let text = "";
+    for(let product of ArrayList){
+        
+        
+        if (((minCount == undefined) || (minCount != undefined && parseInt(product.cost) >= minCount)) &&
+            ((maxCount == undefined) || (maxCount != undefined && parseInt(product.cost) <= maxCount))){
+            text +=` `; 
+
+            document.getElementById("listado").innerHTML = text;
+            
+        }
+        
+    }
+}
+
 function showList(){
 
-    
     
     for(let product of ArrayList){
         
@@ -16,10 +32,9 @@ function showList(){
         if (((minCount == undefined) || (minCount != undefined && parseInt(product.cost) >= minCount)) &&
             ((maxCount == undefined) || (maxCount != undefined && parseInt(product.cost) <= maxCount))){
             let btnPoke = document.createElement("button");
-            document.getElementById("listado").appendChild(btnPoke);
+            document.getElementById("listado").append(btnPoke);
             btnPoke.innerHTML = 
               `
-                
                 <div class="row">
                     <div class="col-3">
                          <img src="${product.image}" alt="imagen"  class="img-thumbnail">
@@ -40,7 +55,7 @@ function showList(){
                 localStorage.setItem("ProdId", product.id)
                 location.href = ("product-info.html");
             })
-             
+            
         }
         
     }
@@ -87,6 +102,7 @@ function sortAndShowCategories(sortCriteria, categoriesArray){
 
     currentCategoriesArray = sortCategories(currentSortCriteria, ArrayList);
 
+    CleanList()
     //Muestro las categorías ordenadas
     showList();
 }
@@ -129,12 +145,13 @@ document.addEventListener('DOMContentLoaded', function(){
     .then(respuesta => respuesta.json()) 
     .then(datos =>{
 
-        let divListaAutos = document.getElementById('listado');
+        
         for (let i=0; i < datos.products.length; i++) {
 
             ArrayList[i] = datos.products[i];
+            
         }
-            showList();
+        showList();
         
 
 
@@ -162,6 +179,7 @@ document.addEventListener('DOMContentLoaded', function(){
             minCount = undefined;
             maxCount = undefined;
             
+            CleanList();
             showList();
         });
     
@@ -184,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function(){
             else{
                 maxCount = undefined;
             }
-    
+            CleanList();
             showList();
         });
 
@@ -193,10 +211,12 @@ document.addEventListener('DOMContentLoaded', function(){
                 let itemUpperCase = item.name.toUpperCase();
                 return itemUpperCase.includes(document.getElementById("buscar").value.toUpperCase());
             });
-            let htmlContentToAppend = "";
+            CleanList();
             for(let i = 0; i < results.length; i++){
                 let products = results;
-                htmlContentToAppend += `
+                let btnPoke = document.createElement("button");
+                document.getElementById("listado").append(btnPoke);
+                btnPoke.innerHTML = `
             
                 <div class="row">
                     <div class="col-3">
@@ -214,12 +234,13 @@ document.addEventListener('DOMContentLoaded', function(){
                 </div>
             
             `
-            }
-            document.getElementById("listado").innerHTML = htmlContentToAppend;
-            
+            btnPoke.addEventListener("click", function () {
+            localStorage.setItem("ProdId", product.id)
+            location.href = ("product-info.html");
+            });
+        }
         });
        
-
    
 });
 

@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
             ${datos.soldCount}
             </li>
             <li class="list-group-item">
-            <p>Imagenes ilustrativas</p>
+            <h5>Imagenes ilustrativas</h5>
             <div class="col-3 d-flex">
             <img src="${datos.images[0]}" alt="imagen" class="img-thumbnail">
             <img src="${datos.images[1]}" alt="imagen" class="img-thumbnail">
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let htmlContentToAppend2 = "";
             let htmlContentToAppend3 = "";
             for (let coments of info) {
-                switch(coments.score) {
+                switch (coments.score) {
                     case 1:
                         htmlContentToAppend3 = `
                         <span class="fa fa-star checked"></span>
@@ -54,8 +54,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         <span class="fa fa-star"></span>
                         <span class="fa fa-star"></span>
                         <span class="fa fa-star"></span>
-                        ` 
-                      break;
+                        `
+                        break;
                     case 2:
                         htmlContentToAppend3 = `
                         <span class="fa fa-star checked"></span>
@@ -63,8 +63,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         <span class="fa fa-star"></span>
                         <span class="fa fa-star"></span>
                         <span class="fa fa-star"></span>
-                        ` 
-                      break;
+                        `
+                        break;
                     case 3:
                         htmlContentToAppend3 = `
                         <span class="fa fa-star checked"></span>
@@ -72,8 +72,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         <span class="fa fa-star checked"></span>
                         <span class="fa fa-star"></span>
                         <span class="fa fa-star"></span>
-                        ` 
-                    break;
+                        `
+                        break;
                     case 4:
                         htmlContentToAppend3 = `
                         <span class="fa fa-star checked"></span>
@@ -81,17 +81,17 @@ document.addEventListener('DOMContentLoaded', function () {
                         <span class="fa fa-star checked"></span>
                         <span class="fa fa-star checked"></span>
                         <span class="fa fa-star"></span>
-                        ` 
-                    break;
+                        `
+                        break;
                     default:
                         htmlContentToAppend3 = `
                         <span class="fa fa-star checked"></span>
                         <span class="fa fa-star checked"></span>
                         <span class="fa fa-star checked"></span>
                         <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star cheched"></span>
-                        ` 
-                  }
+                        <span class="fa fa-star checked"></span>
+                        `
+                }
                 htmlContentToAppend2 += ` 
                 <div class="row flex-column">
                     <div>
@@ -107,5 +107,24 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             document.getElementById("description2").innerHTML = htmlContentToAppend2;
         });
-
+    let htmlContentToAppend4 = "";
+    htmlContentToAppend4 += `
+        <h2>Comentar</h2>
+        <form action="">
+            Tu opinion:</label></br>
+            <div class="form-group">
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+             </div>
+            <label for="puntacion">Tu puntuacion:</br></label>
+            <select id="stars" name="stars">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3" selected>3</option>
+            <option value="4">4</option>
+            </select>
+            </br>
+            <input type="submit">
+        </form>
+    `
+    document.getElementById("description3").innerHTML = htmlContentToAppend4;
 });
