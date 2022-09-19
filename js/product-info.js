@@ -1,23 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
     let productid = localStorage.getItem("ProdId")
-    function newcoment(){
-        let btnAgregar = document.getElementById("agregar");
-        btnAgregar.addEventListener("click", function(){
-        let newcoment = info[0];
-        let inputItem = document.getElementById("exampleFormControlTextarea1");
-        let stars = document.getElementById("stars");
-        console.log(newcoment);
-        newcoment.description = inputItem.value;
-        newcoment.user = localStorage.getItem("user")
-        newcoment.score = Number(stars.value);
-        let date = new Date();
-        console.log(date.toISOString().split('T')[0]);
-        newcoment.dateTime = date.toISOString().split('T')[0]
-        console.log(newcoment);
-        info.push(newcoment);
-        console.log(info);
-    });
-    }
     fetch(PRODUCT_INFO_URL + productid + EXT_TYPE)
         .then(res => res.json())
         .then(datos => {
@@ -125,21 +107,87 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             document.getElementById("description2").innerHTML = htmlContentToAppend2;
             let btnAgregar = document.getElementById("agregar");
-            // btnAgregar.addEventListener("click", function(){
-            let newcoment = info[0];
-            let inputItem = document.getElementById("exampleFormControlTextarea1");
-            let stars = document.getElementById("stars");
-            newcoment.description = inputItem.value;
-            newcoment.user = localStorage.getItem("user")
-            newcoment.score = Number(stars.value);
-            let date = new Date();
-            console.log(date.toISOString().split('T')[0]);
-            newcoment.dateTime = date.toISOString().split('T')[0]
-            console.log(newcoment);
-            info.push(newcoment);
-            console.log(info);
-        // });
-        console.log(info);   
-    });
-    
+        let inputItem = document.getElementById("exampleFormControlTextarea1");
+        let elContainer = document.getElementById("description4");
+        let stars = document.getElementById("stars");
+        let newcoment;
+        btnAgregar.addEventListener("click", (event)=>{
+              // crea un nuevo objeto `Date`
+              var today = new Date();
+              // obtener la fecha y la hora
+              var now = today.toLocaleString();
+              newcoment = {
+                  user: localStorage.getItem("user"),
+                  description : inputItem.value, 
+                  score : Number(stars.value), 
+                  dateTime : now,
+              }
+            switch (newcoment.score) {
+                case 1:
+                    htmlContentToAppend3 = `
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star "></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    `
+                    break;
+                case 2:
+                    htmlContentToAppend3 = `
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    `
+                    break;
+                case 3:
+                    htmlContentToAppend3 = `
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    `
+                    break;
+                case 4:
+                    htmlContentToAppend3 = `
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    `
+                    break;
+                default:
+                    htmlContentToAppend3 = `
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    `
+            }
+
+            if ((inputItem.value != null)) {
+
+                elContainer.innerHTML +=  `<div class="row flex-column">
+                    <div>
+                        <ul class="list-group list-group-flush flex-column">
+                            <li class="list-group-item"> 
+                            ${newcoment.user} - ${newcoment.dateTime} - ${htmlContentToAppend3}
+                             </br> ${newcoment.description} 
+                            </li>
+                        </ul>
+                    </div> 
+                </div>
+            `
+                info.push(newcoment);
+                console.log(newcoment);
+                console.log(info);
+            }
+        });
+        });
+        
+        
 });
