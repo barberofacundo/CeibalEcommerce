@@ -1,5 +1,23 @@
 document.addEventListener('DOMContentLoaded', function () {
     let productid = localStorage.getItem("ProdId")
+    function newcoment(){
+        let btnAgregar = document.getElementById("agregar");
+        btnAgregar.addEventListener("click", function(){
+        let newcoment = info[0];
+        let inputItem = document.getElementById("exampleFormControlTextarea1");
+        let stars = document.getElementById("stars");
+        console.log(newcoment);
+        newcoment.description = inputItem.value;
+        newcoment.user = localStorage.getItem("user")
+        newcoment.score = Number(stars.value);
+        let date = new Date();
+        console.log(date.toISOString().split('T')[0]);
+        newcoment.dateTime = date.toISOString().split('T')[0]
+        console.log(newcoment);
+        info.push(newcoment);
+        console.log(info);
+    });
+    }
     fetch(PRODUCT_INFO_URL + productid + EXT_TYPE)
         .then(res => res.json())
         .then(datos => {
@@ -106,25 +124,22 @@ document.addEventListener('DOMContentLoaded', function () {
             `
             }
             document.getElementById("description2").innerHTML = htmlContentToAppend2;
-        });
-    let htmlContentToAppend4 = "";
-    htmlContentToAppend4 += `
-        <h2>Comentar</h2>
-        <form action="">
-            Tu opinion:</label></br>
-            <div class="form-group">
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-             </div>
-            <label for="puntacion">Tu puntuacion:</br></label>
-            <select id="stars" name="stars">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3" selected>3</option>
-            <option value="4">4</option>
-            </select>
-            </br>
-            <input type="submit">
-        </form>
-    `
-    document.getElementById("description3").innerHTML = htmlContentToAppend4;
+            let btnAgregar = document.getElementById("agregar");
+            // btnAgregar.addEventListener("click", function(){
+            let newcoment = info[0];
+            let inputItem = document.getElementById("exampleFormControlTextarea1");
+            let stars = document.getElementById("stars");
+            newcoment.description = inputItem.value;
+            newcoment.user = localStorage.getItem("user")
+            newcoment.score = Number(stars.value);
+            let date = new Date();
+            console.log(date.toISOString().split('T')[0]);
+            newcoment.dateTime = date.toISOString().split('T')[0]
+            console.log(newcoment);
+            info.push(newcoment);
+            console.log(info);
+        // });
+        console.log(info);   
+    });
+    
 });
