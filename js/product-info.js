@@ -38,6 +38,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
             `
             document.getElementById("description").innerHTML = htmlContentToAppend;
+            console.log(datos)
+            
+            for(let related of datos.relatedProducts){
+            let rproduct = document.createElement("button");
+            document.getElementById("related-products").append(rproduct);
+            rproduct.innerHTML = 
+              `
+            <li>
+            <div class="col-6 d-flex">
+                <img src="${related.image}" alt="imagen" class="img-thumbnail">
+            </div>
+            </li>
+                 
+             `
+             rproduct.addEventListener("click", function () {
+                localStorage.setItem("ProdId", related.id)
+                location.href = ("product-info.html");
+            });
+        }
 
         });
     fetch(PRODUCT_INFO_COMMENTS_URL + productid + EXT_TYPE)
@@ -187,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log(info);
             }
         });
-        });
+    });
         
         
 });
