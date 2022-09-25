@@ -45,11 +45,11 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById("related-products").append(rproduct);
             rproduct.innerHTML = 
               `
-            <li>
-            <div class="col-6 d-flex">
+            
+            <div class=" col-4 d-flex">
                 <img src="${related.image}" alt="imagen" class="img-thumbnail">
             </div>
-            </li>
+            
                  
              `
              rproduct.addEventListener("click", function () {

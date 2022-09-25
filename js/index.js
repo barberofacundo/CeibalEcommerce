@@ -18,7 +18,19 @@ console.log(pantalla);
 
 let nav = document.getElementById('local');
 nav.innerHTML += `
-                 <a class="nav-link" href="sell.html">${pantalla}</a>
+                    <div class="dropdown">
+                    <a class="nav-link btn btn-secondary dropdown-toggle" href="sell.html" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    ${pantalla}
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item" href="cart.html">Mi Carrito</a></li>
+                        <li><a class="dropdown-item" href="my-profile.html">Mi Perfil</a></li>
+                        <li><a class="dropdown-item" href="index.html">Cerrar Sesión</a></li>
+                    </ul>
+                    </div>
+
+                 
                 
             `
         
