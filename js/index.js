@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 
 let pantalla = localStorage.getItem('user');
-console.log(pantalla);
 
 let nav = document.getElementById('local');
 nav.innerHTML += `
@@ -26,11 +25,14 @@ nav.innerHTML += `
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         <li><a class="dropdown-item" href="cart.html">Mi Carrito</a></li>
                         <li><a class="dropdown-item" href="my-profile.html">Mi Perfil</a></li>
-                        <li><a class="dropdown-item" href="index.html">Cerrar Sesión</a></li>
+                        <li id = cerrar><a class="dropdown-item" href="index.html">Cerrar Sesión</a></li>
                     </ul>
                     </div>
-
-                 
-                
+ 
             `
-        
+
+               
+
+            document.getElementById('cerrar').addEventListener("click", function() {
+                localStorage.clear();
+            });         
