@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
             htmlContentToAppend += `
             
             <ul class="list-group">
-                <li class="list-group-item"><h1> ${datos.name}</h1></li>
+                <li class="list-group-item"><h1> ${datos.name}</h1> 
+                <button type="button" class="btn btn-success" id="comprar">Comprar</button></li>
                 <li class="list-group-item">
                 <p>Precio</p>
                 ${datos.cost}
@@ -61,10 +62,26 @@ document.addEventListener('DOMContentLoaded', function () {
           <h2>Comentarios</h2>
 
             `
-            
             document.getElementById("description").innerHTML = htmlContentToAppend;
-            console.log(datos)
+
+
+                document.getElementById("comprar").addEventListener("click", function () {
+                    buy = {
+                        id: datos.id,
+                        name: datos.name,
+                        count: 1,
+                        unitCost: datos.cost,
+                        currency: datos.currency,
+                        image: datos.images[0],
+                        }
+                    console.log(buy)
+                    arraybuy.push(buy)
+                    localStorage.setItem('compra', JSON.stringify(arraybuy));
+                    console.log(arraybuy)
+                 });
             
+
+
             for(let related of datos.relatedProducts){
             let rproduct = document.createElement("button");
             document.getElementById("related-products").append(rproduct);
@@ -83,6 +100,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 location.href = ("product-info.html");
             });
         }
+
+
+
+
 
         });
     fetch(PRODUCT_INFO_COMMENTS_URL + productid + EXT_TYPE)
@@ -152,11 +173,11 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             document.getElementById("description2").innerHTML = htmlContentToAppend2;
             let btnAgregar = document.getElementById("agregar");
-        let inputItem = document.getElementById("exampleFormControlTextarea1");
-        let elContainer = document.getElementById("description4");
-        let stars = document.getElementById("stars");
-        let newcoment;
-        btnAgregar.addEventListener("click", (event)=>{
+            let inputItem = document.getElementById("exampleFormControlTextarea1");
+            let elContainer = document.getElementById("description4");
+            let stars = document.getElementById("stars");
+            let newcoment;
+            btnAgregar.addEventListener("click", (event)=>{
               // crea un nuevo objeto `Date`
               var today = new Date();
               // obtener la fecha y la hora
@@ -228,8 +249,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
             `
                 info.push(newcoment);
-                console.log(newcoment);
-                console.log(info);
             }
         });
     });

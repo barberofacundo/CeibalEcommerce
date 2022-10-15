@@ -39,3 +39,13 @@ let getJSONData = function(url){
         return result;
     });
 }
+let arraybuy = JSON.parse(localStorage.getItem('compra')) || [];
+
+
+
+   
+
+  
+
+
+            

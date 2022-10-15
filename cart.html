@@ -36,8 +36,43 @@
     </div>
   </nav>
   <main>
+    <div class="container">
+      <h1 class="text-center">Carrito</h1>
+      <h3>Articulos a comprar</h5>
+    </div>
     <div class="container" id="buys">
-      
+    </div>
+    <div class="container" id="tracking">  
+      <fieldset>
+        <legend>Tipo de envio:</legend>
+
+        <div>
+        <input type="radio" id="Premium" name="Envio" value="Premium"
+                checked>
+        <label for="Premium">Premium 2 a 5 dias (15%)</label>
+        </div>
+
+        <div>
+        <input type="radio" id="Express" name="Envio" value="Express">
+        <label for="Express">Express 5 a 8 dias (7%)</label>
+        </div>
+
+        <div>
+        <input type="radio" id="standard" name="Envio" value="standard">
+        <label for="standard">Standard 12 a 15 dias (5%) </label>
+        </div>
+    </fieldset>
+
+    <div>
+    <h3>Direccion de Envio :</h5>
+    <form>
+        <label for="street">Calle:</label><br>
+        <input type="text" id="street" name="street"><br>
+        <label for="number">Numero:</label><br>
+        <input type="text" id="number" name="number"><br>
+        <label for="Esquina">Esquina:</label><br>
+        <input type="text" id="Esquina" name="Esquina">
+    </form>
     </div>
   </main>
   <footer class="text-muted">
