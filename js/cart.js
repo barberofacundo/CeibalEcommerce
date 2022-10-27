@@ -1,22 +1,20 @@
-console.log(arraybuy)
 
-    let user = 25801;
-    fetch(CART_INFO_URL + user + EXT_TYPE)
-        .then(res => res.json())
-        .then(datos => {
+let user = 25801;
+fetch(CART_INFO_URL + user + EXT_TYPE)
+    .then(res => res.json())
+    .then(datos => {
+        arraybuy.push(datos.articles[0])
+        showproduct();
+        totalcost();
+       
+    })
 
-            arraybuy.push(datos.articles[0])
+function showproduct() {
+    let htmlContentToAppend = "";
 
-            console.log(arraybuy)
-            showproduct();
-        })
-    
-     function showproduct(){
-     let htmlContentToAppend = "";
+    for (let i = 0; i < arraybuy.length; i++) {
 
-            for (let i = 0; i < arraybuy.length; i++) {
-
-                htmlContentToAppend += `
+        htmlContentToAppend += `
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -31,21 +29,158 @@ console.log(arraybuy)
                         <tbody>
                             <tr>
                                 <td>
-                                <img src="${arraybuy[i].image}" alt="imagen"  class="img-thumbnail"></td>
+                                <img src="${arraybuy[i].image}" alt="imagen" class="img-thumbnail"></td>
                                 <td>${arraybuy[i].name}</td>
                                 <td>${arraybuy[i].currency} ${arraybuy[i].unitCost}</td>
-                                <td><input min="1" type="number" id ="${arraybuy[i].id}" name="cantidad" onclick="sub(${arraybuy[i].id},${arraybuy[i].unitCost})" onkeyup="sub(${arraybuy[i].id},${arraybuy[i].unitCost})"></td>
-                                <td><p>${arraybuy[i].currency}<p><p class="${arraybuy[i].id}"><p></td>
+                                <td><input min="1" value="1" type="number" id ="${arraybuy[i].id}" name="cantidad" onclick="sub(${arraybuy[i].id},${arraybuy[i].unitCost}),totalcost()" onkeyup="sub(${arraybuy[i].id},${arraybuy[i].unitCost}),totalcost()"></td>
+                                <td><p>${arraybuy[i].currency}</p><p class="${arraybuy[i].id}">${arraybuy[i].unitCost}</p></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 `
-                document.getElementById("buys").innerHTML = htmlContentToAppend;
-            
-            }
-        }
+        document.getElementById("buys").innerHTML = htmlContentToAppend;
 
-        function sub(id,costo) {
-            document.getElementsByClassName(`${id}`)[0].innerHTML =  costo*document.getElementById(`${id}`).value
+    }
+}
+
+function sub(id, costo) {
+    document.getElementsByClassName(`${id}`)[0].innerHTML = costo * document.getElementById(`${id}`).value
+}
+
+
+function totalcost() {
+    let cost = 0;
+    let cost2 = 0
+    for (let i = 0; i < arraybuy.length; i++){
+        if (arraybuy[i].currency === "UYU") {
+            cost2 = (parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent)/40)
+            cost += parseInt(cost2) 
         }
+        else{
+        cost2 = parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent)
+        cost += parseInt(cost2) 
+        }
+    }
+    document.getElementById('curren').innerHTML = `USD`
+    document.getElementById('subcost').innerHTML = cost
+}
+
+
+
+// Cuando el usuario elije la modalidad Premium 
+document.getElementById('Premium').addEventListener('click', function(e) {
+    let cost = 0;
+    let shipping = 0;
+    let total = 0
+    for (let i = 0; i < arraybuy.length; i++){
+        let cost2 = parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent)
+        cost += parseInt(cost2) 
+    }
+    shipping = ((cost*15)/100)
+    total = (shipping+cost)
+    document.getElementById('ship').innerHTML = shipping
+    document.getElementById('tot').innerHTML = total
+
+
+  });
+
+  // Cuando el usuario elije la modalidad Express
+document.getElementById('Express').addEventListener('click', function(e) {
+    let cost = 0;
+    let shipping = 0;
+    let total = 0;
+    for (let i = 0; i < arraybuy.length; i++){
+        let cost2 = parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent)
+        cost += parseInt(cost2) 
+    }
+    shipping =((cost*7)/100)
+    total = (shipping+cost)
+    document.getElementById('ship').innerHTML = shipping
+    document.getElementById('tot').innerHTML = total
+
+  });
+
+  // Cuando el usuario elije la modalidad Standard
+document.getElementById('Standard').addEventListener('click', function(e) {
+    let cost = 0;
+    let shipping = 0;
+    let total = 0;
+    for (let i = 0; i < arraybuy.length; i++){
+        let cost2 = parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent)
+        cost += parseInt(cost2) 
+    }
+    shipping = ((cost*5)/100)
+    total = (shipping+cost)
+    document.getElementById('ship').innerHTML = shipping
+    document.getElementById('tot').innerHTML = total
+  });
+  
+
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function () {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+
+// When the user clicks on buttom (id = "guardar"), close the modal
+document.getElementById("guardar").addEventListener("click", function (){
+    modal.style.display = "none";    
+    console.log(document.querySelector('input[name="pago"]:checked').value) 
+    document.getElementById("selltype").innerHTML = document.querySelector('input[name="pago"]:checked').value
+    }
+)
+
+// evento para deshabilitar campos cuándo se selecciona transferencia
+document.getElementById('Transferencia').addEventListener('click', function(e) {
+    document.getElementById('vencimiento').disabled = true;
+    document.getElementById('CodSeg').disabled = true;
+    document.getElementById('NumeroTarjeta').disabled = true;
+    document.getElementById('NumeroCuenta').disabled = false;
+
+  });
+
+  // evento para deshabilitar campos cuándo se selecciona Tarjeta
+document.getElementById('Tarjeta').addEventListener('click', function(e) {
+    document.getElementById('vencimiento').disabled = false;
+    document.getElementById('CodSeg').disabled = false;
+    document.getElementById('NumeroTarjeta').disabled = false;
+    document.getElementById('NumeroCuenta').disabled = true;
+
+  });
+
+
+  // evento para desplegar mensaje push
+  const form = document.querySelector('form');
+  const thankYouMessage = document.querySelector('#thank-you-message');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    thankYouMessage.classList.add('show');
+    setTimeout(() => form.submit(), 2000);
+  });
+  
+  
+   

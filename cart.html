@@ -36,44 +36,120 @@
     </div>
   </nav>
   <main>
-    <div class="container">
-      <h1 class="text-center">Carrito</h1>
-      <h3>Articulos a comprar</h5>
-    </div>
-    <div class="container" id="buys">
-    </div>
-    <div class="container" id="tracking">  
-      <fieldset>
-        <legend>Tipo de envio:</legend>
-
-        <div>
-        <input type="radio" id="Premium" name="Envio" value="Premium"
-                checked>
-        <label for="Premium">Premium 2 a 5 dias (15%)</label>
+    <form id="street">
+        <div class="container">
+          <h1 class="text-center">Carrito</h1>
+          <h3>Articulos a comprar</h5>
         </div>
-
-        <div>
-        <input type="radio" id="Express" name="Envio" value="Express">
-        <label for="Express">Express 5 a 8 dias (7%)</label>
+        <div class="container" id="buys">
         </div>
+        <div class="container" id="tracking">
+        <fieldset>
+          <legend>Tipo de envio:</legend>
 
-        <div>
-        <input type="radio" id="standard" name="Envio" value="standard">
-        <label for="standard">Standard 12 a 15 dias (5%) </label>
-        </div>
-    </fieldset>
+          <div>
+            <input type="radio" id="Premium" name="Envio" value="Premium" required>
+            <label for="Premium">Premium 2 a 5 dias (15%)</label>
+          </div>
 
-    <div>
-    <h3>Direccion de Envio :</h5>
-    <form>
-        <label for="street">Calle:</label><br>
-        <input type="text" id="street" name="street"><br>
-        <label for="number">Numero:</label><br>
-        <input type="text" id="number" name="number"><br>
-        <label for="Esquina">Esquina:</label><br>
-        <input type="text" id="Esquina" name="Esquina">
-    </form>
-    </div>
+          <div>
+            <input type="radio" id="Express" name="Envio" value="Express" required>
+            <label for="Express">Express 5 a 8 dias (7%)</label>
+          </div>
+
+          <div>
+            <input type="radio" id="Standard" name="Envio" value="standard" required>
+            <label for="standard">Standard 12 a 15 dias (5%) </label>
+          </div>
+        </fieldset><br>
+      <div>
+        <h4>Direccion de Envio :</h4>
+          <label for="street">Calle:</label><br>
+          <input type="text" id="street" name="street" class="creditcar" required><br>
+          <label for="number">Numero:</label><br>
+          <input type="text" id="number" name="number" class="creditcar" required><br>
+          <label for="Esquina">Esquina:</label><br>
+          <input type="text" id="Esquina" name="Esquina" class="creditcar" required>
+
+          </div>
+          <div>
+            <br>
+            Costos
+            <div id="cost">
+              <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div class="ms-2 me-auto">
+                    <div class="fw-bold">Subtotal</div>
+                    Costo unitario del producto por cantidad
+                  </div>
+                  <p id="curren"></p><p id="subcost"><p>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div class="ms-2 me-auto">
+                    <div class="fw-bold">Costo de envío</div>
+                    Según el tipo de envío
+                  </div>
+                  <span id="ship">0</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div class="ms-2 me-auto">
+                    <div class="fw-bold">Total($)</div>
+                  </div>
+                  <span id="tot">0</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <hr>
+          <div class="alert alert-success" id="thank-you-message" role="alert">
+            !Has comprado con exito!
+          </div>
+          <h4>Formas de pago: </h4>
+          <div class="creditcar">
+            <div id="selltype"> </div>
+
+            <!-- Trigger/Open The Modal -->
+            <button type="button" id="myBtn" class="btn btn-link">Selecionar</button>
+          </div><br>
+
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary" type="submit" id="Finish">Finalizar compra</button>
+          </div>
+          <div id="toast"></div>
+          <!-- The Modal -->
+          <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <h2>Forma de pago</h2>
+              <hr>
+              <div>
+                <input type="radio" id="Tarjeta" name="pago" value="Tarjeta" checked="">
+                <label for="Tarjeta">Tarjeta de Crédito</label><br>
+                <div class="creditcar">
+                  <label for="NumeroTarjeta">Número de Tarjeta</label><br>
+                  <input type="text" name="NumeroTarjeta" id="NumeroTarjeta" required><br>
+                  <label for="CodSeg">CodSeg</label><br>
+                  <input type="text" name="CodSeg" id="CodSeg" required><br>
+                </div>
+                <label for="Vencimiento(MM/AA)">Vencimiento(MM/AA)</label><br>
+                <input type="text" name="Vencimiento(MM/AA)" id="vencimiento" required>
+                <hr>
+              </div>
+              <div>
+                <input type="radio" id="Transferencia" name="pago" value="Transferencia"  required>
+                <label for="Tarjeta">Transferencia</label><br>
+                <div class="transfer">
+                  <label for="NumeroCuenta">Número de Cuenta</label><br>
+                  <input type="text" name="NumeroCuenta" id="NumeroCuenta"required><br>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal" id="guardar">Guardar cambios</button>
+              </div>
+            </div>
+        </form>
   </main>
   <footer class="text-muted">
     <div class="container">
