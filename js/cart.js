@@ -1,12 +1,10 @@
-
 let user = 25801;
 fetch(CART_INFO_URL + user + EXT_TYPE)
     .then(res => res.json())
     .then(datos => {
         arraybuy.push(datos.articles[0])
         showproduct();
-        totalcost();
-       
+        totalcost();  
     })
 
 function showproduct() {
@@ -24,6 +22,7 @@ function showproduct() {
                                 <th>Costo</th>
                                 <th>Cantidad</th>
                                 <th>Subtotal</th>
+                                <th>Eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -34,6 +33,7 @@ function showproduct() {
                                 <td>${arraybuy[i].currency} ${arraybuy[i].unitCost}</td>
                                 <td><input min="1" value="1" type="number" id ="${arraybuy[i].id}" name="cantidad" onclick="sub(${arraybuy[i].id},${arraybuy[i].unitCost}),totalcost()" onkeyup="sub(${arraybuy[i].id},${arraybuy[i].unitCost}),totalcost()"></td>
                                 <td><p>${arraybuy[i].currency}</p><p class="${arraybuy[i].id}">${arraybuy[i].unitCost}</p></td>
+                                <td><button type="button" class="btn btn-danger ${arraybuy[i].id}" onclick="quit(${arraybuy[i].id})">Eliminar</button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -42,6 +42,30 @@ function showproduct() {
         document.getElementById("buys").innerHTML = htmlContentToAppend;
 
     }
+}
+
+// Cuando el usuario quiere borrar un articulo del carrito
+function quit(id) {
+    console.log(`${id}`)
+    let i = 0;
+    if (arraybuy != []){
+        while ((arraybuy[i].id != id)) {
+            i++;
+        }
+        console.log(i)
+        if (arraybuy.length == 1){
+            document.getElementById("buys").innerHTML = "Carrito vacio";
+        }
+        else{
+        arraybuy.splice(i,1);
+        console.log(arraybuy)
+        showproduct()
+        }
+    }       
+    else{
+        document.getElementById("buys").innerHTML = "Carrito vacio";
+    }
+    
 }
 
 function sub(id, costo) {
@@ -62,14 +86,12 @@ function totalcost() {
         cost += parseInt(cost2) 
         }
     }
-    document.getElementById('curren').innerHTML = `USD`
-    document.getElementById('subcost').innerHTML = cost
+
+    document.getElementById('subcost').innerHTML = `USD ${cost}`
 }
 
-
-
 // Cuando el usuario elije la modalidad Premium 
-document.getElementById('Premium').addEventListener('click', function(e) {
+document.getElementById('Premium').addEventListener('click', function () {
     let cost = 0;
     let shipping = 0;
     let total = 0
@@ -77,15 +99,14 @@ document.getElementById('Premium').addEventListener('click', function(e) {
         let cost2 = parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent)
         cost += parseInt(cost2) 
     }
-    shipping = ((cost*15)/100)
+    shipping = ((cost*15)/100) 
     total = (shipping+cost)
-    document.getElementById('ship').innerHTML = shipping
-    document.getElementById('tot').innerHTML = total
-
+    document.getElementById('ship').innerHTML = `USD ${shipping}`
+    document.getElementById('tot').innerHTML = `USD ${total}`
 
   });
 
-  // Cuando el usuario elije la modalidad Express
+// Cuando el usuario elije la modalidad Express
 document.getElementById('Express').addEventListener('click', function(e) {
     let cost = 0;
     let shipping = 0;
@@ -96,12 +117,12 @@ document.getElementById('Express').addEventListener('click', function(e) {
     }
     shipping =((cost*7)/100)
     total = (shipping+cost)
-    document.getElementById('ship').innerHTML = shipping
-    document.getElementById('tot').innerHTML = total
+    document.getElementById('ship').innerHTML = `USD ${shipping}`
+    document.getElementById('tot').innerHTML =`USD ${total}`
 
   });
 
-  // Cuando el usuario elije la modalidad Standard
+// Cuando el usuario elije la modalidad Standard
 document.getElementById('Standard').addEventListener('click', function(e) {
     let cost = 0;
     let shipping = 0;
@@ -112,8 +133,8 @@ document.getElementById('Standard').addEventListener('click', function(e) {
     }
     shipping = ((cost*5)/100)
     total = (shipping+cost)
-    document.getElementById('ship').innerHTML = shipping
-    document.getElementById('tot').innerHTML = total
+    document.getElementById('ship').innerHTML = `USD ${shipping}`
+    document.getElementById('tot').innerHTML = `USD ${total}`
   });
   
 

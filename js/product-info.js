@@ -74,10 +74,11 @@ document.addEventListener('DOMContentLoaded', function () {
                         currency: datos.currency,
                         image: datos.images[0],
                         }
-                    console.log(buy)
                     arraybuy.push(buy)
                     localStorage.setItem('compra', JSON.stringify(arraybuy));
-                    console.log(arraybuy)
+                    let thankYouMessage = document.querySelector('#thank-you-message');
+                    thankYouMessage.classList.add('show');
+                    setTimeout(() => location.reload(), 2000);   
                  });
             
 
