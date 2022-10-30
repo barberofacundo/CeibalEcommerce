@@ -4,7 +4,7 @@ fetch(CART_INFO_URL + user + EXT_TYPE)
     .then(datos => {
         arraybuy.push(datos.articles[0])
         showproduct();
-        totalcost();  
+        totalcost()
     })
 
 function showproduct() {
@@ -55,15 +55,23 @@ function quit(id) {
         console.log(i)
         if (arraybuy.length == 1){
             document.getElementById("buys").innerHTML = "Carrito vacio";
+            document.getElementById('subcost').innerHTML = `USD 0`
+            document.getElementById('ship').innerHTML = `USD 0`
+            document.getElementById('tot').innerHTML = `USD 0`
+            localStorage.clear()
         }
         else{
         arraybuy.splice(i,1);
         console.log(arraybuy)
         showproduct()
+        totalcost()
+        sub(arraybuy[i].id,arraybuy[i].unitCost)
+        localStorage.clear()
         }
     }       
     else{
         document.getElementById("buys").innerHTML = "Carrito vacio";
+        localStorage.clear()
     }
     
 }
@@ -96,14 +104,19 @@ document.getElementById('Premium').addEventListener('click', function () {
     let shipping = 0;
     let total = 0
     for (let i = 0; i < arraybuy.length; i++){
-        let cost2 = parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent)
+        if (arraybuy[i].currency === "UYU") {
+            cost2 = (parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent)/40)
+            cost += parseInt(cost2) 
+        }
+        else{
+        cost2 = parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent)
         cost += parseInt(cost2) 
+        }
     }
     shipping = ((cost*15)/100) 
     total = (shipping+cost)
     document.getElementById('ship').innerHTML = `USD ${shipping}`
     document.getElementById('tot').innerHTML = `USD ${total}`
-
   });
 
 // Cuando el usuario elije la modalidad Express
@@ -112,8 +125,14 @@ document.getElementById('Express').addEventListener('click', function(e) {
     let shipping = 0;
     let total = 0;
     for (let i = 0; i < arraybuy.length; i++){
-        let cost2 = parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent)
+        if (arraybuy[i].currency === "UYU") {
+            cost2 = (parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent)/40)
+            cost += parseInt(cost2) 
+        }
+        else{
+        cost2 = parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent)
         cost += parseInt(cost2) 
+        }
     }
     shipping =((cost*7)/100)
     total = (shipping+cost)
@@ -128,8 +147,14 @@ document.getElementById('Standard').addEventListener('click', function(e) {
     let shipping = 0;
     let total = 0;
     for (let i = 0; i < arraybuy.length; i++){
-        let cost2 = parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent)
+        if (arraybuy[i].currency === "UYU") {
+            cost2 = (parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent)/40)
+            cost += parseInt(cost2) 
+        }
+        else{
+        cost2 = parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent)
         cost += parseInt(cost2) 
+        }
     }
     shipping = ((cost*5)/100)
     total = (shipping+cost)
@@ -143,7 +168,7 @@ document.getElementById('Standard').addEventListener('click', function(e) {
 var modal = document.getElementById("myModal");
 
 // Get the button that opens the modal
-var btn = document.getElementById("myBtn");
+var btn = document.getElementById("metododepago");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
@@ -185,7 +210,7 @@ document.getElementById('Transferencia').addEventListener('click', function(e) {
   });
 
   // evento para deshabilitar campos cuándo se selecciona Tarjeta
-document.getElementById('Tarjeta').addEventListener('click', function(e) {
+    document.getElementById('Tarjeta').addEventListener('click', function(e) {
     document.getElementById('vencimiento').disabled = false;
     document.getElementById('CodSeg').disabled = false;
     document.getElementById('NumeroTarjeta').disabled = false;
@@ -193,14 +218,46 @@ document.getElementById('Tarjeta').addEventListener('click', function(e) {
 
   });
 
+    // eventos para dar feedback sobre el modal
+    document.getElementById('Finish').addEventListener("click", event => {
+        let metododepago = document.getElementById('metododepago');
+        let tarjeta = document.getElementById('Tarjeta')
+        let transferencia = document.getElementById('Transferencia')
+    
+        
+        if (!tarjeta.checkValidity() || !transferencia.checkValidity()) {
+            metododepago.classList.add('is-invalid')
+          } else {
+            metododepago.classList.remove('is-invalid')
+          }
+      });
+
+      document.getElementById('Tarjeta').addEventListener("click", event => {
+        if (document.getElementById('Tarjeta').checkValidity()) {
+            document.getElementById('metododepago').classList.remove('is-invalid')
+        } else {
+            document.getElementById('metododepago').classList.add('is-invalid')
+        }
+      
+      });
+
+      document.getElementById('Transferencia').addEventListener("click", event => {
+        if (document.getElementById('Transferencia').checkValidity()) {
+            document.getElementById('metododepago').classList.remove('is-invalid')
+        } else {
+            document.getElementById('metododepago').classList.add('is-invalid')
+        }
+      
+      });
+
 
   // evento para desplegar mensaje push
-  const form = document.querySelector('form');
+  let AdressForm = document.forms['Adressform'];          
   const thankYouMessage = document.querySelector('#thank-you-message');
-  form.addEventListener('submit', (e) => {
+    AdressForm.addEventListener('submit', (e) => {
     e.preventDefault();
     thankYouMessage.classList.add('show');
-    setTimeout(() => form.submit(), 2000);
+    setTimeout(() => AdressForm.submit(), 2000);
   });
   
   
