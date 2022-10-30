@@ -2,7 +2,7 @@ let user = 25801;
 fetch(CART_INFO_URL + user + EXT_TYPE)
     .then(res => res.json())
     .then(datos => {
-        arraybuy.push(datos.articles[0])
+        // arraybuy.push(datos.articles[0])
         showproduct();
         totalcost()
     })
@@ -28,7 +28,7 @@ function showproduct() {
                         <tbody>
                             <tr>
                                 <td>
-                                <img src="${arraybuy[i].image}" alt="imagen" class="img-thumbnail"></td>
+                                <img src="${arraybuy[i].image}" alt="imagen" class="img-thumbnail" width="150-" height="150"></td>
                                 <td>${arraybuy[i].name}</td>
                                 <td>${arraybuy[i].currency} ${arraybuy[i].unitCost}</td>
                                 <td><input min="1" value="1" type="number" id ="${arraybuy[i].id}" name="cantidad" onclick="sub(${arraybuy[i].id},${arraybuy[i].unitCost}),totalcost()" onkeyup="sub(${arraybuy[i].id},${arraybuy[i].unitCost}),totalcost()"></td>
@@ -84,15 +84,75 @@ function sub(id, costo) {
 function totalcost() {
     let cost = 0;
     let cost2 = 0
-    for (let i = 0; i < arraybuy.length; i++){
+    for (let i = 0; i < arraybuy.length; i++) {
         if (arraybuy[i].currency === "UYU") {
-            cost2 = (parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent)/40)
-            cost += parseInt(cost2) 
+            cost2 = (parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent) / 40)
+            cost += parseInt(cost2)
         }
-        else{
-        cost2 = parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent)
-        cost += parseInt(cost2) 
+        else {
+            cost2 = parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent)
+            cost += parseInt(cost2)
         }
+    }
+    if (document.getElementById('Premium').checked == true) {
+        let cost = 0;
+        let shipping = 0;
+        let total = 0
+        for (let i = 0; i < arraybuy.length; i++) {
+            if (arraybuy[i].currency === "UYU") {
+                cost2 = (parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent) / 40)
+                cost += parseInt(cost2)
+            }
+            else {
+                cost2 = parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent)
+                cost += parseInt(cost2)
+            }
+        }
+        shipping = ((cost * 15) / 100)
+        total = (shipping + cost)
+        document.getElementById('ship').innerHTML = `USD ${shipping}`
+        document.getElementById('tot').innerHTML = `USD ${total}`
+
+    }
+
+    if (document.getElementById('Express').checked == true) {
+        let cost = 0;
+        let shipping = 0;
+        let total = 0;
+        for (let i = 0; i < arraybuy.length; i++) {
+            if (arraybuy[i].currency === "UYU") {
+                cost2 = (parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent) / 40)
+                cost += parseInt(cost2)
+            }
+            else {
+                cost2 = parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent)
+                cost += parseInt(cost2)
+            }
+        }
+        shipping = ((cost * 7) / 100)
+        total = (shipping + cost)
+        document.getElementById('ship').innerHTML = `USD ${shipping}`
+        document.getElementById('tot').innerHTML = `USD ${total}`
+    }
+
+    if (document.getElementById('Standard').checked == true) {
+        let cost = 0;
+        let shipping = 0;
+        let total = 0;
+        for (let i = 0; i < arraybuy.length; i++) {
+            if (arraybuy[i].currency === "UYU") {
+                cost2 = (parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent) / 40)
+                cost += parseInt(cost2)
+            }
+            else {
+                cost2 = parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent)
+                cost += parseInt(cost2)
+            }
+        }
+        shipping = ((cost * 5) / 100)
+        total = (shipping + cost)
+        document.getElementById('ship').innerHTML = `USD ${shipping}`
+        document.getElementById('tot').innerHTML = `USD ${total}`
     }
 
     document.getElementById('subcost').innerHTML = `USD ${cost}`
@@ -257,6 +317,10 @@ document.getElementById('Transferencia').addEventListener('click', function(e) {
     AdressForm.addEventListener('submit', (e) => {
     e.preventDefault();
     thankYouMessage.classList.add('show');
+    localStorage.clear();
+    arraybuy = [];
+    showproduct();
+    document.getElementById("buys").innerHTML = "Carrito vacio";
     setTimeout(() => AdressForm.submit(), 2000);
   });
   
