@@ -28,7 +28,7 @@ function showproduct() {
                         <tbody>
                             <tr>
                                 <td>
-                                <img src="${arraybuy[i].image}" alt="imagen" class="img-thumbnail" width="150-" height="150"></td>
+                                <img src="${arraybuy[i].image}" alt="imagen" class="img-thumbnail" width="150" height="150" id ="profilephoto"></td>
                                 <td>${arraybuy[i].name}</td>
                                 <td>${arraybuy[i].currency} ${arraybuy[i].unitCost}</td>
                                 <td><input min="1" value="1" type="number" id ="${arraybuy[i].id}" name="cantidad" onclick="sub(${arraybuy[i].id},${arraybuy[i].unitCost}),totalcost()" onkeyup="sub(${arraybuy[i].id},${arraybuy[i].unitCost}),totalcost()"></td>

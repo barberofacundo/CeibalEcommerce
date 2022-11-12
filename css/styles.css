@@ -193,13 +193,21 @@ a.custom-card:hover {
    padding-left: 9rem;
 }
 
- input:invalid {
+#floatingInput:invalid {
  border: 2px solid rgb(221, 53, 11);
 }
 
-input:valid {
+#floatingInput:valid {
   border: 2px solid rgb(37, 238, 37); 
 }
+
+#floatingPassword:invalid {
+  border: 2px solid rgb(221, 53, 11);
+ }
+ 
+ #floatingPassword:valid {
+   border: 2px solid rgb(37, 238, 37); 
+ }
 
 #related-products {
   text-align: center;
