@@ -42,6 +42,7 @@ function setCatID(id) {
     window.location = "products.html"
 }
 
+//Funcion para mostrar categorias en pantalla
 function showCategoriesList(){
 
     let htmlContentToAppend = "";

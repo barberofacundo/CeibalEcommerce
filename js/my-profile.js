@@ -1,6 +1,8 @@
 let mail = localStorage.getItem('user');
 let imageBinary = null
 console.log(mail)
+
+//Autocompleta los datos que extrae desde el local storage
 function autocomplete() {
   if (localStorage.getItem('foto') != undefined) {
     let foto = localStorage.getItem('foto')
@@ -109,6 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
     localStorage.setItem('apellido2', miapellido2);
     localStorage.setItem('tel', mitel);
   });
+  
   ImageCapture()
   autocomplete()
      

@@ -24,11 +24,7 @@ function CleanList(){
 }
 
 function showList(){
-
-    
     for(let product of ArrayList){
-        
-        
         if (((minCount == undefined) || (minCount != undefined && parseInt(product.cost) >= minCount)) &&
             ((maxCount == undefined) || (maxCount != undefined && parseInt(product.cost) <= maxCount))){
             let btnPoke = document.createElement("button");
@@ -55,9 +51,7 @@ function showList(){
                 localStorage.setItem("ProdId", product.id)
                 location.href = ("product-info.html");
             })
-            
-        }
-        
+        } 
     }
 }
   
@@ -144,16 +138,12 @@ document.addEventListener('DOMContentLoaded', function(){
     fetch(Listado_URL) 
     .then(respuesta => respuesta.json()) 
     .then(datos =>{
-
-        
         for (let i=0; i < datos.products.length; i++) {
 
             ArrayList[i] = datos.products[i];
             
         }
         showList();
-        
-
 
         let descrip =  document.getElementById('descri');
         descrip.innerHTML += `Veras aqui todos los productos de la categoria ${datos.catName}`

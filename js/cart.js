@@ -2,11 +2,10 @@ let user = 25801;
 fetch(CART_INFO_URL + user + EXT_TYPE)
     .then(res => res.json())
     .then(datos => {
-        // arraybuy.push(datos.articles[0])
         showproduct();
         totalcost()
     })
-
+//Funcion para mostrar la lista de productos en pantalla 
 function showproduct() {
     let htmlContentToAppend = "";
 
@@ -44,7 +43,7 @@ function showproduct() {
     }
 }
 
-// Cuando el usuario quiere borrar un articulo del carrito
+// Función para borrar artículos del carrito
 function quit(id) {
     console.log(`${id}`)
     let i = 0;
@@ -80,10 +79,9 @@ function sub(id, costo) {
     document.getElementsByClassName(`${id}`)[0].innerHTML = costo * document.getElementById(`${id}`).value
 }
 
-
 function totalcost() {
     let cost = 0;
-    let cost2 = 0
+    let cost2 = 0;
     for (let i = 0; i < arraybuy.length; i++) {
         if (arraybuy[i].currency === "UYU") {
             cost2 = (parseInt(document.getElementsByClassName(`${arraybuy[i].id}`)[0].textContent) / 40)
@@ -222,8 +220,6 @@ document.getElementById('Standard').addEventListener('click', function(e) {
     document.getElementById('tot').innerHTML = `USD ${total}`
   });
   
-
-
 // Get the modal
 var modal = document.getElementById("myModal");
 

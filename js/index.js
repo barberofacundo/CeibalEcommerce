@@ -30,9 +30,3 @@ nav.innerHTML += `
                     </div>
  
             `
-
-               
-
-            // document.getElementById('cerrar').addEventListener("click", function() {
-            //     localStorage.clear();
-            // });         
